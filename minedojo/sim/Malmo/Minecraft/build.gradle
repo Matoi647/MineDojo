@@ -22,7 +22,7 @@ buildscript {
 //            exclude group: 'org.ow2.asm', module: 'asm-debug-all'
 //        }
 
-        classpath fileTree(dir: '/home/matoi/Github/rl/MineDojo-final/MineDojo/minedojo/sim/Malmo/Minecraft/MixinGradle-dcfaf61/MixinGradle/dcfaf61/', include: '*.jar')
+        classpath fileTree(dir: '/home/matoi/Github/rl/MineDojo-final/MineDojo/minedojo/sim/Malmo/Minecraft/MixinGradle/dcfaf61/', include: '*.jar')
 
         classpath 'com.github.yunfanjiang:ForgeGradle:FG_2.2_patched-SNAPSHOT'
     }
