@@ -1,3 +1,5 @@
+### This is a modified version of offcial MineDojo
+
 <div align="center">
 <img src="https://minedojo.org/images/logo.png" width="400px">
 
@@ -34,30 +36,97 @@ Using MineDojo, AI agents can freely explore a procedurally generated 3D world w
 
 # Contents
 
-- [Installation](#Installation)
-- [Getting Started](#Getting-Started)
-- [Benchmarking Suite](#Benchmarking-Suite)
-  - [Programmatic Tasks](#Programmatic-Tasks)
-  - [Creative Tasks](#Creative-Tasks)
-  - [Playthrough Task](#Playthrough-task)
-- [Our Paper](#Check-Out-Our-Paper)
-- [License](#License)
+- [Contents](#contents)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Benchmarking Suite](#benchmarking-suite)
+  - [Programmatic Tasks](#programmatic-tasks)
+  - [Creative Tasks](#creative-tasks)
+  - [Playthrough Task](#playthrough-task)
+- [Using the Knowledge Base](#using-the-knowledge-base)
+  - [YouTube Database](#youtube-database)
+  - [Wiki Database](#wiki-database)
+  - [Reddit Database](#reddit-database)
+- [Check out our paper!](#check-out-our-paper)
+- [License](#license)
 
 # Installation
 
 MineDojo requires Python ≥ 3.9. We have tested on Ubuntu 20.04 and Mac OS X. **Please follow [this guide](https://docs.minedojo.org/sections/getting_started/install.html#prerequisites)** to install the prerequisites first, such as JDK 8 for running Minecraft backend. We highly recommend creating a new [Conda virtual env](https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html) to isolate dependencies. Alternatively, we have provided a [pre-built Docker image](https://docs.minedojo.org/sections/getting_started/install.html#docker-image) for easier installation.
 
-Installing the MineDojo stable version is as simple as:
 
+1. clone this repository
 ```bash
-pip install minedojo
+git clone https://github.com/Matoi647/MineDojo.git
+cd MineDojo
+```
+2. Modify this file: ```minedojo/sim/Malmo/Minecraft/build.gradle```
+from
+``` gradle
+buildscript {
+repositories {
+
+    maven { url 'https://jitpack.io' }
+    jcenter()
+    mavenCentral()
+    maven {
+        name = "forge"
+        url = "https://maven.minecraftforge.net/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+dependencies {
+    classpath 'org.ow2.asm:asm:6.0'
+    classpath('com.github.SpongePowered:MixinGradle:dcfaf61'){ // 0.6
+        // Because forgegradle requires 6.0 (not -debug-all) while mixingradle depends on 5.0
+        // and putting mixin right here will place it before forge in the class loader
+        exclude group: 'org.ow2.asm', module: 'asm-debug-all'
+    }
+
+    classpath 'com.github.yunfanjiang:ForgeGradle:FG_2.2_patched-SNAPSHOT'
+}
+```
+to
+``` gradle
+buildscript {
+    repositories {
+
+        maven { url 'https://jitpack.io' }
+        jcenter()
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net/"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'org.ow2.asm:asm:6.0'
+//         classpath('com.github.SpongePowered:MixinGradle:dcfaf61'){ // 0.6
+//             // Because forgegradle requires 6.0 (not -debug-all) while mixingradle depends on 5.0
+//             // and putting mixin right here will place it before forge in the class loader
+//             exclude group: 'org.ow2.asm', module: 'asm-debug-all'
+//         }
+
+        classpath fileTree(dir: absolute path to your MixinGradle file, include: '*.jar')
+
+        classpath 'com.github.yunfanjiang:ForgeGradle:FG_2.2_patched-SNAPSHOT'
+    }
+```
+for example:
+``` shell
+classpath fileTree(dir: '/home/work/MineDojo/minedojo/sim/Malmo/Minecraft/MixinGradle-dcfaf61/MixinGradle/dcfaf61/', include: '*.jar')
 ```
 
-To install the cutting edge version from the main branch of this repo, run:
-
+3. run ```pip install```
 ```bash
-git clone https://github.com/MineDojo/MineDojo && cd MineDojo
-pip install -e .
+pip install .
 ```
 
 

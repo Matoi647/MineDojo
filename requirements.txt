@@ -17,6 +17,6 @@ mypy-extensions
 jsonlines
 praw
 wget
-importlib_resources
+importlib-resources==1.3.0
 hydra-core
 Pillow
