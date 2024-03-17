@@ -1,4 +1,4 @@
-### This is a modified version of offcial MineDojo
+This is a modified version of offcial MineDojo, fixed `validate_install.py` issue.
 
 <div align="center">
 <img src="https://minedojo.org/images/logo.png" width="400px">
