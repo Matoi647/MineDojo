@@ -126,7 +126,7 @@ classpath fileTree(dir: '/home/work/MineDojo/minedojo/sim/Malmo/Minecraft/MixinG
 
 3. run ```pip install```
 ```bash
-pip install .
+pip install -e .
 ```
 
 
